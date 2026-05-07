@@ -47,12 +47,12 @@ export const COLOR_PRESETS: Record<EventType, LightPreset> = {
     transitiontime: 2,
   },
   waiting: {
-    label: "orange + breathe (needs attention)",
+    label: "orange + single breathe (needs attention)",
     on: true,
     hue: 5000,
     sat: 254,
     bri: 254,
-    alert: "lselect", // breathing pulse for ~15s
+    alert: "select", // one short flash, NOT lselect — avoids stuck pulsing
     transitiontime: 1,
   },
   done: {
@@ -66,11 +66,12 @@ export const COLOR_PRESETS: Record<EventType, LightPreset> = {
 };
 
 export async function setLightState(cfg: Config, preset: LightPreset): Promise<void> {
-  const body: Record<string, unknown> = { on: preset.on };
+  // Always clear any in-flight alert (`lselect` runs ~15s on the bridge and
+  // ignores cancellation unless we explicitly set alert back to "none").
+  const body: Record<string, unknown> = { on: preset.on, alert: preset.alert ?? "none" };
   if (preset.hue !== undefined) body.hue = preset.hue;
   if (preset.sat !== undefined) body.sat = preset.sat;
   if (preset.bri !== undefined) body.bri = preset.bri;
-  if (preset.alert !== undefined) body.alert = preset.alert;
   if (preset.transitiontime !== undefined) body.transitiontime = preset.transitiontime;
 
   const url = `https://${cfg.bridgeIp}/api/${cfg.username}/lights/${cfg.lightId}/state`;

@@ -31,7 +31,8 @@ jq --arg cmd "${NOTIFY}" '
   .hooks.SessionStart   = [{ "matcher": "startup|resume", "hooks": [{ "type": "command", "command": ($cmd + " idle SessionStart") }] }] |
   .hooks.UserPromptSubmit = [{ "hooks": [{ "type": "command", "command": ($cmd + " working UserPromptSubmit") }] }] |
   .hooks.PreToolUse     = [{ "hooks": [{ "type": "command", "command": ($cmd + " working PreToolUse") }] }] |
-  .hooks.Notification   = [{ "hooks": [{ "type": "command", "command": ($cmd + " waiting Notification") }] }] |
+  .hooks.Notification    = [{ "hooks": [{ "type": "command", "command": ($cmd + " idle Notification") }] }] |
+  .hooks.PermissionRequest = [{ "hooks": [{ "type": "command", "command": ($cmd + " waiting PermissionRequest") }] }] |
   .hooks.Stop           = [{ "hooks": [{ "type": "command", "command": ($cmd + " done Stop"), "async": true }] }] |
   .hooks.SessionEnd     = [{ "hooks": [{ "type": "command", "command": ($cmd + " idle SessionEnd") }] }]
 ' "${SETTINGS}" > "${TMP}"

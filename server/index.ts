@@ -73,11 +73,6 @@ function handle(type: EventType, source?: string) {
     return;
   }
 
-  // waiting beats working; working never downgrades waiting until next event
-  if (type === "working" && lastApplied === "waiting" && pendingType !== "idle") {
-    return; // keep the orange breathing pattern
-  }
-
   schedule(type);
 }
 
