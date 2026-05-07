@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Template — install-service.sh substitutes __PROJECT_DIR__ with the
+  absolute project path at install time and writes the result to
+  ~/Library/LaunchAgents/com.hue-claude.plist.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.hue-claude</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>__PROJECT_DIR__/dist/hue-claude</string>
+  </array>
+
+  <!-- Run from project dir so .env is discoverable via process.cwd(). -->
+  <key>WorkingDirectory</key>
+  <string>__PROJECT_DIR__</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <!-- Restart if it crashes. -->
+  <key>KeepAlive</key>
+  <true/>
+
+  <!-- Throttle restarts to avoid tight crash loops. -->
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/hue-claude.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/hue-claude.err.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+  </dict>
+</dict>
+</plist>

@@ -1,0 +1,14 @@
+node_modules/
+.env
+*.log
+
+# Compiled binary — rebuild with `bun run build`. Distribute via GitHub Releases instead.
+dist/
+
+# Legacy Bun binary lockfile (Bun 1.2+ uses text-based bun.lock which IS committed)
+bun.lockb
+
+# Editor / OS noise
+.DS_Store
+.idea/
+.vscode/

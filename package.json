@@ -1,0 +1,20 @@
+{
+  "name": "hue-claude",
+  "version": "0.1.0",
+  "description": "Philips Hue notifier for Claude Code activity",
+  "type": "module",
+  "scripts": {
+    "discover": "bun scripts/discover.ts",
+    "pair": "bun scripts/pair.ts",
+    "lights": "bun scripts/list-lights.ts",
+    "test-color": "bun scripts/test-color.ts",
+    "server": "bun server/index.ts",
+    "server:dev": "bun --watch server/index.ts",
+    "build": "bun build server/index.ts --compile --outfile dist/hue-claude",
+    "start": "./dist/hue-claude"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.6.3"
+  }
+}
